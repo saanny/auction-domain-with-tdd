@@ -37,9 +37,15 @@ export default class Auction {
 
     }
     public placedBid(bid: Bid) {
+
+        if (this._sellerId === bid.biderId) {
+            throw new Error("Invalid Bidder");
+        }
+
         if (bid.amount <= this._startingPrice) {
             throw new Error("Invalid Bid Amount Exception")
         }
+
         this._winningBid = bid;
     }
 
