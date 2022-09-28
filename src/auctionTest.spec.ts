@@ -49,9 +49,9 @@ describe('Auction Management Tests', () => {
     test("bid places as current winner bid when bid is greater than starting price on first bid", () => {
 
 
-        const auctionTestBuilder = new AuctionTestBuilder();
-        auctionTestBuilder.WithStartingPrice(1000)
-        const auction = auctionTestBuilder.Build();
+        const auction = new AuctionTestBuilder()
+            .WithStartingPrice(1000)
+            .Build();
         const bid = new Bid(1100, 2);
         auction.placedBid(bid);
 
@@ -64,9 +64,10 @@ describe('Auction Management Tests', () => {
     ])("bid not placed when  bid is not greater than  starting price on first bid", (bidAmount: number, startingPrice: number) => {
 
         // parameterize anonymous method
-        const auctionTestBuilder = new AuctionTestBuilder();
-        auctionTestBuilder.WithStartingPrice(startingPrice)
-        const auction = auctionTestBuilder.Build();
+
+        const auction = new AuctionTestBuilder()
+            .WithStartingPrice(startingPrice)
+            .Build();
 
         const bid = new Bid(bidAmount, 2);
 
@@ -75,9 +76,10 @@ describe('Auction Management Tests', () => {
     });
 
     test("seller cant place bid on himself auction", () => {
-        const auctionTestBuilder = new AuctionTestBuilder();
-        auctionTestBuilder.WithSeller(1);
-        const auction = auctionTestBuilder.Build();
+
+        const auction = new AuctionTestBuilder()
+            .WithSeller(1)
+            .Build();
 
         const bid = new Bid(1100, 1);
 

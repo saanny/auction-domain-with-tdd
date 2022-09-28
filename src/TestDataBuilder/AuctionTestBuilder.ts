@@ -15,13 +15,15 @@ export class AuctionTestBuilder {
         this._endDateTime.setDate(this._endDateTime.getDate() + 1);
         this._product = "IPhone 13 pro max";
         this._startingPrice = 1000;
-
     }
+
     public WithSeller(sellerId: number) {
         this._sellerId = sellerId;
+        return this;
     }
     public WithStartingPrice(price: number) {
         this._startingPrice = price;
+        return this;
     }
     public Build(): Auction {
         return new Auction(this._sellerId, this._endDateTime, this._product, this._startingPrice)
