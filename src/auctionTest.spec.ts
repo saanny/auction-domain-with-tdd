@@ -1,6 +1,8 @@
 import Auction from './Auction';
 import Bid from './Bid';
+import { Bidders, Sellers } from './TestConsttant';
 import { AuctionTestBuilder } from './TestDataBuilder/AuctionTestBuilder';
+import { BidTestFactory } from './TestDataBuilder/BidTestFactory';
 describe('Auction Management Tests', () => {
 
 
@@ -39,9 +41,9 @@ describe('Auction Management Tests', () => {
 
     test("auction opens with no winner at the beginning", () => {
 
-        const auctionTestBuilder = new AuctionTestBuilder();
-        auctionTestBuilder.WithStartingPrice(1100)
-        const auction = auctionTestBuilder.Build();
+        const auction = new AuctionTestBuilder()
+            .WithStartingPrice(1100)
+            .Build();
 
         expect(auction.winningBid).toBe(undefined)
     });
@@ -52,7 +54,7 @@ describe('Auction Management Tests', () => {
         const auction = new AuctionTestBuilder()
             .WithStartingPrice(1000)
             .Build();
-        const bid = new Bid(1100, 2);
+        const bid = BidTestFactory.createWithAmount(1100);
         auction.placedBid(bid);
 
         expect(auction.winningBid).toBe(bid);
@@ -69,7 +71,7 @@ describe('Auction Management Tests', () => {
             .WithStartingPrice(startingPrice)
             .Build();
 
-        const bid = new Bid(bidAmount, 2);
+        const bid = BidTestFactory.createWithAmount(bidAmount);
 
         expect(() => auction.placedBid(bid)).toThrow(`Invalid Bid Amount Exception`);
 
@@ -78,10 +80,10 @@ describe('Auction Management Tests', () => {
     test("seller cant place bid on himself auction", () => {
 
         const auction = new AuctionTestBuilder()
-            .WithSeller(1)
+            .WithSeller(Sellers.JACK)
             .Build();
 
-        const bid = new Bid(1100, 1);
+        const bid = BidTestFactory.createWithBidder(Sellers.JACK);
 
         expect(() => auction.placedBid(bid)).toThrow("Invalid Bidder");
     });

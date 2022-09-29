@@ -1,5 +1,6 @@
 import Auction from "../Auction";
 import Bid from "../Bid";
+import { Sellers } from "../TestConsttant";
 
 export class AuctionTestBuilder {
 
@@ -10,7 +11,7 @@ export class AuctionTestBuilder {
     private _winningBid: Bid | undefined;
 
     constructor() {
-        this._sellerId = 1;
+        this._sellerId = Sellers.JACK;
         this._endDateTime = new Date();
         this._endDateTime.setDate(this._endDateTime.getDate() + 1);
         this._product = "IPhone 13 pro max";
